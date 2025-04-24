@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advertisements</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            overflow-x: hidden;
+            transition: background-color 3s ease, color 3s ease;
+            background:url(bg.jpg);
+        }
+
+        body.dark-mode {
+        background:url(dbg1.jpg);
+            background-color: rgba(222, 223, 222, 0.2);
+            color: #eee;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background-color: transparent;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            animation: slideDown 3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .dark-mode .navbar a {
+            color: #eee;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            animation: pulse 3s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        .logo img {
+            height: 25px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .desktop-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+            animation: fadeInLeft 3s ease-out;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .desktop-nav ul li a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .desktop-nav ul li.active a {
+            color: #ccff00;
+        }
+
+        .dark-mode .desktop-nav ul li.active a {
+            color: #aaff00;
+        }
+
+        .desktop-nav ul li.active a .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #ccff00;
+            border-radius: 50%;
+            margin-left: 6px;
+            vertical-align: middle;
+            animation: blink 3s infinite alternate;
+        }
+
+        @keyframes blink {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0.4;
+            }
+        }
+
+        .dark-mode .desktop-nav ul li.active a .dot {
+            background-color: #aaff00;
+        }
+
+        .desktop-nav ul li a:hover {
+            color: #ccff00;
+        }
+
+        .dark-mode .desktop-nav ul li a:hover {
+            color: #aaff00;
+        }
+
+        .cta-button a {
+            background-color: #ccff00;
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: black;
+            font-weight: 600;
+            transition: background 0.3s ease, color 0.3s ease;
+            animation: fadeIn 3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .dark-mode .cta-button a {
+            background-color: #aaff00;
+            color: #1a1a1a;
+        }
+
+        .cta-button a:hover {
+            background-color: #e2ff4d;
+        }
+
+        .dark-mode .cta-button a:hover {
+            background-color: #c6ff4d;
+        }
+
+        .desktop-btn {
+            margin-left: 20px;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            animation: rotate 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(deg);
+            }
+        }
+
+        .dark-mode .hamburger {
+            color: #eee;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 260px;
+            height: 100%;
+            background-color: #333;
+            color: #eee;
+            padding: 40px 20px;
+            transition: left 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            animation: slideInLeft 3s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-300px);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .dark-mode .sidebar {
+            background-color: #222;
+            color: #ddd;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar .logo {
+            display: block;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 10px;
+            animation: scaleUp 3s ease-out;
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .sidebar .logo img {
+            max-width: 150px;
+            height: 60px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .sidebar .nav-links {
+            margin-top: 10px;
+            width: 100%;
+            animation: slideInRight 3s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .sidebar .nav-links ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar .nav-links ul li a {
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .sidebar .nav-links ul li a {
+            color: #eee;
+        }
+
+        .sidebar .nav-links ul li.active a {
+            color: #ccff00;
+        }
+
+        .dark-mode .sidebar .nav-links ul li.active a {
+            color: #aaff00;
+        }
+
+        .sidebar .nav-links ul li.active a .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #ccff00;
+            border-radius: 50%;
+            margin-left: 6px;
+            vertical-align: middle;
+            animation: blink 3s infinite alternate;
+        }
+
+        @keyframes blink {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0.4;
+            }
+        }
+
+        .dark-mode .sidebar .nav-links ul li.active a .dot {
+            background-color: #aaff00;
+        }
+
+        .sidebar .cta-button {
+            margin-top: 30px;
+            display: block;
+            margin-left: 0;
+            width: 100%;
+            animation: slideInUp 3s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .sidebar .cta-button a {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #ccff00;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            width: 60%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            animation: pulse 3s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
+        }
+
+        .dark-mode .sidebar .cta-button a {
+            background-color: #aaff00;
+            color: #1a1a1a;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            animation: fadeIn 3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .dark-mode .close-btn {
+            color: #eee;
+        }
+
+        /* Responsive Styles for Menu (Horizontal with Scroll) */
+        @media (max-width: 768px) {
+            .desktop-nav,
+            .desktop-btn {
+                display: block;
+            }
+
+            .hamburger {
+                display: none !important;
+            }
+
+            .desktop-nav ul {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start; /* Align to the start for better scroll visibility */
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-left: 15px; /* Add some padding on the left */
+                padding-right: 15px; /* Add some padding on the right */
+            }
+
+            .desktop-nav ul li {
+                margin: 0 10px;
+            }
+
+            .navbar {
+                padding: 10px 15px;
+                overflow-x: auto; /* Make the whole navbar scrollable if needed */
+            }
+        }
+
+        /* 3D Card Styles */
+        .advertisement-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 80px 20px 60px;
+            perspective: 1000px;
+            animation: slideInUp 3s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .advert-card {
+            width: 300px;
+            height: 200px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            position: relative;
+        }
+
+        .dark-mode .advert-card {
+            background-color: #222;
+            color: #eee;
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+        }
+
+        .advert-card:hover {
+            transform: rotateY(20deg) scale(1.05);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-front {
+            background-color: #ddd;
+            color: #333;
+            border-radius: 10px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        .dark-mode .card-front {
+            background-color: #444;
+            color: #eee;
+        }
+
+        .card-back {
+            background-color: #ccff00;
+            color: black;
+            border-radius: 10px;
+            transform: rotateY(180deg);
+            font-size: 1.2em;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dark-mode .card-back {
+            background-color: #aaff00;
+            color: #1a1a1a;
+        }
+
+        /* Fullscreen Overlay */
+        .advert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1001;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .advert-overlay.active {
+            display: flex;
+        }
+
+        .advert-details {
+            background-color: #fff;
+            color: #333;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 80%;
+            max-height: 80%;
+            overflow: auto;
+            text-align: center;
+            position: relative;
+            animation: zoomIn 0.3s ease-out;
+        }
+
+        .dark-mode .advert-details {
+            background-color: #222;
+            color: #eee;
+        }
+
+        .advert-details img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .advert-details h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .advert-details p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .close-overlay {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size
+: 2em;
+            color: #555;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .close-overlay {
+            color: #ddd;
+        }
+
+        .close-overlay:hover {
+            color: #ccff00;
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease-in-out;
+            animation: bounce 3s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .dark-mode .dark-mode-toggle {
+            background-color: #eee;
+            color: #333;
+        }
+
+        .dark-mode-toggle:focus {
+            outline: none;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="Logo" />
+            </a>
+        </div>
+
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="esc.html">ESC</a></li>
+                <li class="active"><a href="ad.html">Advertisement <span class="dot"></span></a></li>
+            </ul>
+        </nav>
+
+        <div class="cta-button desktop-btn">
+            <a href="#">Advertise Here</a>
+        </div>
+
+        <div class="hamburger" id="hamburger"></div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <a href="index.html" class="logo">
+            <img src="Group1.png" alt="Site Logo" />
+        </a>
+
+        <span id="close-sidebar" class="close-btn">&times;</span>
+
+        <nav class="nav-links">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="esc.html">ESC</a></li>
+                <li class="active"><a href="ad.html">Advertisement <span class="dot"></span></a></li>
+            </ul>
+            <div class="cta-button">
+                
+            </div>
+        </nav>
+    </aside>
+
+    <div class="advertisement-container">
+        <div class="advert-card" data-advert-id="1">
+            <div class="card-face card-front"><font style="color:Orangered; font-size:30px;">Sammie </font> Digitalz</div>
+            <div class="card-face card-back">Advertisement 1</div>
+        </div>
+        <div class="advert-card" data-advert-id="2">
+            <div class="card-face card-front">
+                <font style="color:Orangered; font-size:30px; border-bottom:2px solid black;">Eli </font> Monpress
+                
+            </div>
+            <div class="card-face card-back">Amazing Product</div>
+        </div>
+        <div class="advert-card" data-advert-id="3">
+            <div class="card-face card-front">  
+          <font style="color:Orangered; ">
+       Timo  </font>   Digital </div>
+            <div class="card-face card-back">Limited Time Offer</div>
+        </div>
+        
+        
+        
+        </div>
+
+    
+    
+    <div class="advertisement-container">
+        <div class="advert-card" data-advert-id="4">
+            <div class="card-face card-front"><font style="color:Orangered; font-size:30px;">Ayanfe Education</font> Consultant</div>
+            <div class="card-face card-back">Advertisement 1</div>
+        </div>
+        <div class="advert-card" data-advert-id="5">
+            <div class="card-face card-front">
+                <font style="color:Orangered; font-size:30px; border-bottom:2px solid black;">Temitope </font> Ventures
+                
+            </div>
+            <div class="card-face card-back">Amazing Product</div>
+        </div>
+        <div class="advert-card" data-advert-id="6">
+            <div class="card-face card-front">  
+          <font style="color:Orangered; ">
+       Prosper  </font>   Graphics </div>
+            <div class="card-face card-back">Limited Time Offer</div>
+        </div>
+        
+        
+        
+        </div>
+
+    
+    
+    <div class="advertisement-container" style="border-left:2px solid orangered; margin-top:-100px;">
+        <div class="advert-card" data-advert-id="7">
+            <div class="card-face card-front"><font style="color:Orangered; font-size:30px;">Ogunsanya </font> Babatunde</div>
+            <div class="card-face card-back">Advertisement 1</div>
+        </div>
+        <div class="advert-card" data-advert-id="8">
+            <div class="card-face card-front">
+                <font style="color:Orangered; font-size:30px; border-bottom:2px solid black;">Fabusuyi </font> Abiola
+                
+            </div>
+ 
+        </div>
+        
+        
+        
+        </div>
+
+    <div class="advert-overlay" id="advertOverlay">
+        <div class="advert-details">
+            <span class="close-overlay">&times;</span>
+            <img src="" alt="Advertisement Image" id="advertImage">
+            <h3 id="advertTitle"></h3>
+            <p id="advertDescription"></p>
+        </div>
+    </div>
+    
+    
+
+    <button class="dark-mode-toggle">Toggle Dark Mode</button>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const closeBtn = document.getElementById('close-sidebar');
+        const body = document.body;
+        const darkModeToggle = document.querySelector('.dark-mode-toggle');
+        const advertCards = document.querySelectorAll('.advert-card');
+        const advertOverlay = document.getElementById('advertOverlay');
+        const closeOverlayBtn = document.querySelector('.close-overlay');
+        const advertImage = document.getElementById('advertImage');
+        const advertTitle = document.getElementById('advertTitle');
+        const advertDescription = document.getElementById('advertDescription');
+
+       
+        // if (hamburger) {
+        //     hamburger.addEventListener('click', () => {
+        //         sidebar.classList.add('active');
+        //     });
+        // }
+
+        // if (closeBtn) {
+        //     closeBtn.addEventListener('click', () => {
+        //         sidebar.classList.remove('active');
+        //     });
+        // }
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+        });
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        advertCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const advertId = this.dataset.advertId;
+                // In a real scenario, you would fetch the details based on the advertId
+                // For this example, we'll use some static content
+                if (advertId === '1') {
+                    advertImage.src =  'sammy.jpg'; // Replace with your image path
+                    advertTitle.textContent = 'Sam Digitalz!';
+                    advertDescription.textContent = 'SammyDigitalz is a creative digital artist and designer specializing in unique, eye-catching visuals. With a passion for blending modern aesthetics with innovative techniques, SammyDigitalz crafts stunning digital art, logos, and branding elements tailored to clients needs. Whether for personal projects or business branding, SammyDigitalz delivers high-quality, custom designs that stand out.  Explore the portfolio and services at:sammiedigitalz.hostking000.com.';
+                } else if (advertId === '2') {
+                    advertImage.src = 'monpress.jpg'; // Replace with your image path
+                    advertTitle.textContent = 'Exclusive Service Just For You';
+                    advertDescription.textContent = 'Eli monpress is a one of the best web developers in the country, proficient in over 7 programming lamguages and 14 frameworks. patronize us today to experience a smooth client to seller transaction. ';
+                } else if (advertId === '3') {
+                    advertImage.src = 'timo.jpg'; // Replace with your image path
+                    advertTitle.textContent = 'Timo Digital';
+                    advertDescription.textContent = "'My name is Adedeji Timothy Oluwanifemi from department of Computer science education am a Social Media Marketer  Helping brands grow online through strategy, content, and engagement.  📊 I turn posts into profits and followers into loyal customers.  📍 DM for collabs & marketing solutions tailored to your business.  Let’s build your digital presence—one post at a time! 💼📲'";
+                }else if (advertId === '4') {
+                    advertImage.src = 'ayanfe.jpg'; // Replace with your image path
+                    advertTitle.textContent = 'Ayanfe Education Consultant ';
+                    advertDescription.textContent = " We provide expert admission guidance for all universities and polytechnics in Nigeria and abroad.  ";
+                }else if (advertId === '5') {
+                    advertImage.src = 'temi.jpg'; // Replace with your image path
+                    advertTitle.textContent = 'Temitope ventures';
+                    advertDescription.textContent = "  My name is Opalade Temitope John from department of computer science education. TEMITOPE VENTURES Dealers in all type of home appliances both household and home appliances. We sell quality and durable items.       ";
+                }else if (advertId === '6') {
+                    advertImage.src = 'prosper.jpg'; // Replace with your image path
+                    advertTitle.textContent = 'Prosper Graphix';
+                    advertDescription.textContent = "'Sangodapo Promise Moyosore Computer science and education Prosper Graphix'";
+                }else if (advertId === '7') {
+                    advertImage.src = 'babs.jpg'; // Replace with your image path
+                    advertTitle.textContent = 'Ogunsanya Babatunde';
+                    advertDescription.textContent = "'My name is OGUNSANYA HAMMED BABATUNDE from department of computer science education. Babs Fundz Edit , deals with all kind of Graphics designs.'";
+                }else if (advertId === '8') {
+                    advertImage.src = 'fab.jpg'; // Replace with your image path
+                    advertTitle.textContent = 'Fabusuyi Abiola';
+                    advertDescription.textContent = "'Fabusuyi Abiola Emmanuel Computer science Deals with all crypto currencies (buying&selling) we also have gadget @ computer village Ikeja @ affordable price 🎗'";
+                }else if (advertId === '3') {
+                    advertImage.src = 'timo.jpg'; // Replace with your image path
+                    advertTitle.textContent = 'Timo Digital';
+                    advertDescription.textContent = "'My name is Adedeji Timothy Oluwanifemi from department of Computer science education am a Social Media Marketer  Helping brands grow online through strategy, content, and engagement.  📊 I turn posts into profits and followers into loyal customers.  📍 DM for collabs & marketing solutions tailored to your business.  Let’s build your digital presence—one post at a time! 💼📲'";
+                }
+                advertOverlay.classList.add('active');
+            });
+        });
+
+        closeOverlayBtn.addEventListener('click', () => {
+            advertOverlay.classList.remove('active');
+        });
+
+        advertOverlay.addEventListener('click', (event) => {
+            if (event.target === advertOverlay) {
+                advertOverlay.classList.remove('active');
+            }
+        });
+    </script>
+
+</body>
+</html>

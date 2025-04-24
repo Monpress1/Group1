@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Team</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    
+    
+    <style>
+     body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            overflow-x: hidden;
+            transition: background-color 3s ease, color 3s ease;
+            background:url(bg.jpg);
+        }
+
+        body.dark-mode {
+        background:url(dbg1.jpg);
+            background-color: rgba(222, 223, 222, 0.2);
+            color: #eee;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background-color: transparent;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            animation: slideDown 3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .dark-mode .navbar a {
+            color: #eee;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            animation: pulse 3s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        .logo img {
+            height: 25px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .desktop-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+            animation: fadeInLeft 3s ease-out;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .desktop-nav ul li a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .desktop-nav ul li.active a {
+            color: #ccff00;
+        }
+
+        .dark-mode .desktop-nav ul li.active a {
+            color: #aaff00;
+        }
+
+        .desktop-nav ul li.active a .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #ccff00;
+            border-radius: 50%;
+            margin-left: 6px;
+            vertical-align: middle;
+            animation: blink 3s infinite alternate;
+        }
+
+        @keyframes blink {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0.4;
+            }
+        }
+
+        .dark-mode .desktop-nav ul li.active a .dot {
+            background-color: #aaff00;
+        }
+
+        .desktop-nav ul li a:hover {
+            color: #ccff00;
+        }
+
+        .dark-mode .desktop-nav ul li a:hover {
+            color: #aaff00;
+        }
+
+        .cta-button a {
+            background-color: #ccff00;
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: black;
+            font-weight: 600;
+            transition: background 0.3s ease, color 0.3s ease;
+            animation: fadeIn 3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .dark-mode .cta-button a {
+            background-color: #aaff00;
+            color: #1a1a1a;
+        }
+
+        .cta-button a:hover {
+            background-color: #e2ff4d;
+        }
+
+        .dark-mode .cta-button a:hover {
+            background-color: #c6ff4d;
+        }
+
+        .desktop-btn {
+            margin-left: 20px;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            animation: rotate 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(deg);
+            }
+        }
+
+        .dark-mode .hamburger {
+            color: #eee;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 260px;
+            height: 100%;
+            background-color: #333;
+            color: #eee;
+            padding: 40px 20px;
+            transition: left 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            animation: slideInLeft 3s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-300px);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .dark-mode .sidebar {
+            background-color: #222;
+            color: #ddd;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar .logo {
+            display: block;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 10px;
+            animation: scaleUp 3s ease-out;
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .sidebar .logo img {
+            max-width: 150px;
+            height: 60px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .sidebar .nav-links {
+            margin-top: 10px;
+            width: 100%;
+            animation: slideInRight 3s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .sidebar .nav-links ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar .nav-links ul li a {
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .sidebar .nav-links ul li a {
+            color: #eee;
+        }
+
+        .sidebar .nav-links ul li.active a {
+            color: #ccff00;
+        }
+
+        .dark-mode .sidebar .nav-links ul li.active a {
+            color: #aaff00;
+        }
+
+        .sidebar .nav-links ul li.active a .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #ccff00;
+            border-radius: 50%;
+            margin-left: 6px;
+            vertical-align: middle;
+            animation: blink 3s infinite alternate;
+        }
+
+        @keyframes blink {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0.4;
+            }
+        }
+
+        .dark-mode .sidebar .nav-links ul li.active a .dot {
+            background-color: #aaff00;
+        }
+
+        .sidebar .cta-button {
+            margin-top: 30px;
+            display: block;
+            margin-left: 0;
+            width: 100%;
+            animation: slideInUp 3s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .sidebar .cta-button a {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #ccff00;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            width: 60%;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            animation: pulse 3s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
+        }
+
+        .dark-mode .sidebar .cta-button a {
+            background-color: #aaff00;
+            color: #1a1a1a;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            animation: fadeIn 3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .dark-mode .close-btn {
+            color: #eee;
+        }
+
+      
+        @media (max-width: 768px) {
+            .desktop-nav,
+            .desktop-btn {
+                display: block;
+            }
+
+            .hamburger {
+                display: none !important;
+            }
+
+            .desktop-nav ul {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-left: 15px; 
+                padding-right: 15px; 
+            }
+
+            .desktop-nav ul li {
+                margin: 0 10px;
+            }
+
+            .navbar {
+                padding: 10px 15px;
+                overflow-x: auto;
+            }
+        }
+
+      body,
+      html {
+        height: 100%;
+        font-family: "Arial", sans-serif;
+      }
+
+ 
+
+      
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f8f9fa;
+        color: #333;
+        line-height: 1.6;
+        padding: 60px 20px;
+      }
+
+      
+      .team-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 0 0 30px 0;
+      }
+
+      .team-section h1 {
+        font-size: 2.8rem;
+        margin-bottom: 20px;
+        color: #ccff00;
+        font-weight: 700;
+      }
+
+      .team-section p.subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 50px;
+        color: #ccff00;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .team-divider {
+        width: 80px;
+        height: 0px;
+        background: linear-gradient(90deg, #3498db, #9b59b6);
+        margin: 0 auto 60px;
+        border: none;
+        border-radius: 2px;
+      }
+
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+      }
+
+      .team-member {
+        background: white;
+        padding: 30px 25px 35px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .team-member:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+      }
+
+      .member-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid #f1f1f1;
+        margin: 0 auto 20px;
+        display: block;
+        transition: all 0.3s ease;
+      }
+
+      .team-member:hover .member-image {
+        border-color: #FF7F50;
+        transform: scale(1.05);
+      }
+
+      .member-role {
+        color: #FF7F50;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+        font-weight: 800;
+      }
+
+      .member-name {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #2c3e50;
+        font-weight: 700;
+      }
+
+      .member-bio {
+        color: #7f8c8d;
+        margin-bottom: 25px;
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+
+      .member-social {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .member-social a {
+        color: #95a5a6;
+        background: #f1f1f1;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .member-social a:hover {
+        background: #FF7F50;
+        color: white;
+        transform: translateY(-3px);
+      }
+
+      
+      @media (max-width: 768px) {
+        .team-section h1 {
+          font-size: 2.2rem;
+        }
+
+        .team-section p.subtitle {
+          font-size: 1rem;
+          margine: 0 20px;
+        }
+
+        .team-grid {
+          grid-template-columns: 1fr;
+          max-width: 400px;
+          margin: 0 auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="Logo" />
+            </a>
+        </div>
+
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="esc.html">ESC</a></li>
+                <li class="active"><a href="ad.html">Advertisement <span class="dot"></span></a></li>
+            </ul>
+        </nav>
+
+
+        <div class="hamburger" id="hamburger"></div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <a href="index.html" class="logo">
+            <img src="Group1.png" alt="Site Logo" />
+        </a>
+
+        <span id="close-sidebar" class="close-btn">&times;</span>
+
+        <nav class="nav-links">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="esc.html">ESC</a></li>
+                <li class="active"><a href="ad.html">Advertisement <span class="dot"></span></a></li>
+            </ul>
+            <div class="cta-button">
+                
+            </div>
+        </nav>
+    </aside>
+
+
+    <section class="team-section">
+      <hr class="team-divider" />
+
+      <div class="team-grid">
+        
+        
+        <div class="team-member">
+          <img
+            src="https://sammiedigitalz.hostking000.com/wp-content/uploads/2024/05/SammieOs-scaled.jpg"
+            alt="Sammie Digitalz"
+            class="member-image"
+          />
+          <p class="member-role">Group Leader</p>
+          <h3 class="member-name">Samuel Oladayo</h3>
+          <p class="member-bio">
+            I am a creative digital artist and designer specializing in unique, eye-catching visuals. With a passion for blending modern aesthetics with innovative techniques, SammyDigitalz crafts stunning digital art, logos, and branding elements tailored to clients' needs. Whether for personal projects or business branding, SammyDigitalz delivers high-quality, custom designs that stand out.  
+
+          </p>
+          <div class="member-social">
+            <a href="https://www.facebook.com/share/1Bf67gq9p2/"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.linkedin.com/in/samuel-oladayo/"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://wa.me/+2348073306784"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        
+        <div class="team-member">
+          <img
+            src="https://sammiedigitalz.hostking000.com/wp-content/uploads/2025/04/IMG-20250423-WA0014.jpg"
+            alt="Adugbole Gbolahan"
+            class="member-image"
+          />
+          <p class="member-role">Developer</p>
+          <h3 class="member-name">Adugbole Gbolahan</h3>
+          <p class="member-bio">
+            My name is Adugbole Gbolahan, a 300-level zoology student at EKSU with a strong interest in  creative aspects of coding. I find it rewarding to build and problem-solve through programming.
+          </p>
+          <div class="member-social">
+            <a href="https://wa.link/lomddk"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/gbolahan.adugbole"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+
+        
+        <div class="team-member">
+          <img
+            src="https://sammiedigitalz.hostking000.com/wp-content/uploads/2025/04/IMG-20250421-WA0107.jpg"
+            alt="Nick Dark"
+            class="member-image"
+          />
+          <p class="member-role">Photographer</p>
+          <h3 class="member-name">Amos Ayomide</h3>
+          <p class="member-bio">
+            We provide expert admission guidance for all universities and polytechnics in Nigeria and abroad. Our services include:
+
+✅ University & Polytechnic Registration (Local & International)
+✅ Foreign Admissions & Study Abroad (USA, UK, Canada, etc.)
+✅ Visa Processing & Exam Prep (SAT, TOEFL, IELTS, etc.)
+✅ Personalized Admission Counseling & Tutoring
+✅ Digital Advertising & Business Consulting
+✅ Relationship Counseling & Motivational Speaking
+AYANFE Educational Consultant—Shaping Futures, Transforming Education.
+          </p>
+          <div class="member-social">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+
+        
+        <div class="team-member">
+          <img
+            src="https://sammiedigitalz.hostking000.com/wp-content/uploads/2025/04/IMG-20250422-WA0129.jpg"
+            alt="Pastor"
+            class="member-image"
+          />
+          <p class="member-role">Marketer</p>
+          <h3 class="member-name">Oluwanifemi Adedeji</h3>
+          <p class="member-bio">
+            My name is Adedeji Timothy Oluwanifemi from department of Computer science education am a Social Media Marketer | Helping brands grow online through strategy, content, and engagement.  
+📊 I turn posts into profits and followers into loyal customers.  
+📍 DM for collabs & marketing solutions tailored to your business.  
+Let’s build your digital presence—one post at a time! 💼📲
+          </p>
+          <div class="member-social">
+            <a href=" https://www.facebook.com/profile.php?id=100091495698710  "><i class="fab fa-facebook">    </i>  </a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href=" Wa.me/+2349014961033 "><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+
+        
+        <div class="team-member">
+          <img
+            src="https://sammiedigitalz.hostking000.com/wp-content/uploads/2025/04/IMG-20250421-WA0111.jpg"
+            alt="Opalade Temitope John"
+            class="member-image"
+          />
+          <p class="member-role">No Role</p>
+          <h3 class="member-name">Opalade Temitope John</h3>
+          <p class="member-bio">
+         My name is Opalade Temitope John from department of computer science education. TEMITOPE VENTURES Dealers in all type of home appliances both household and home appliances. We sell quality and durable items.
+          </p>
+          <div class="member-social">
+            <a href="#"><i class="fab fa-behance"></i></a>
+            <a href="#"><i class="fab fa-dribbble"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+
+        
+        <div class="team-member">
+          <img
+            src="https://sammiedigitalz.hostking000.com/wp-content/uploads/2025/04/IMG-20250423-WA0002.jpg"
+            alt="Sangodapo Promise Moyosore"
+            class="member-image"
+          />
+          <p class="member-role">No Role</p>
+          <h3 class="member-name">Sangodapo Promise Moyosore</h3>
+          <p class="member-bio">
+Computer science and education
+Prosper Graphix
+          </p>
+          <div class="member-social">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-stack-overflow"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        
+         
+        <div class="team-member">
+          <img
+            src="https://sammiedigitalz.hostking000.com/wp-content/uploads/2025/04/IMG-20250423-WA0003.jpg"
+            alt="OGUNSANYA HAMMED BABATUNDE"
+            class="member-image"
+          />
+          <p class="member-role">No Role</p>
+          <h3 class="member-name">OGUNSANYA HAMMED BABATUNDE</h3>
+          <p class="member-bio">
+My name is OGUNSANYA HAMMED BABATUNDE from department of computer science education. 
+Babs Fundz Edit , deals with all kind of Graphics designs.
+          </p>
+          <div class="member-social">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-stack-overflow"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        
+         
+        <div class="team-member">
+          <img
+            src="https://sammiedigitalz.hostking000.com/wp-content/uploads/2025/04/IMG-20250423-WA0004.jpg"
+            alt="Fabusuyi Abiola Emmanuel"
+            class="member-image"
+          />
+          <p class="member-role">No Role</p>
+          <h3 class="member-name">Fabusuyi Abiola Emmanuel</h3>
+          <p class="member-bio">
+Computer science 
+Deals with all crypto currencies (buying&selling) we also have gadget @ computer village Ikeja @ affordable price 🎗
+          </p>
+          <div class="member-social">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-stack-overflow"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
